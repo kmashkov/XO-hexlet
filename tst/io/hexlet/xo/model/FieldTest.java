@@ -11,7 +11,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 public class FieldTest {
-    
+
     @Test
     public void testGetSize() throws Exception {
         final Field field = new Field();
