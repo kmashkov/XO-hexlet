@@ -23,8 +23,8 @@ public class WinnerController {
             if (check(field, new Point(0, 0), p -> new Point(p.x + 1, p.y + 1))) {
                 return field.getFigure(new Point(field.width - 1, field.height - 1));
             }
-            if (check(field, new Point(field.width - 1, field.height - 1), p -> new Point(p.x - 1, p.y - 1))) {
-                return field.getFigure(new Point(field.width, field.height));
+            if (check(field, new Point(field.width - 1, 0), p -> new Point(p.x - 1, p.y + 1))) {
+                return field.getFigure(new Point(field.width - 1, 0));
             }
         } catch (Exception e) {
             e.printStackTrace();
