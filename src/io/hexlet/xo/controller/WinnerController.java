@@ -21,9 +21,9 @@ public class WinnerController {
                 }
             }
             if (check(field, new Point(0, 0), p -> new Point(p.x + 1, p.y + 1))) {
-                return field.getFigure(new Point(field.width, field.height));
+                return field.getFigure(new Point(field.width - 1, field.height - 1));
             }
-            if (check(field, new Point(field.width, field.height), p -> new Point(p.x - 1, p.y - 1))) {
+            if (check(field, new Point(field.width - 1, field.height - 1), p -> new Point(p.x - 1, p.y - 1))) {
                 return field.getFigure(new Point(field.width, field.height));
             }
         } catch (Exception e) {

@@ -13,81 +13,67 @@ public class WinnerControllerTest {
     int testFieldHeight = 4;
 
     @Test
-    public void testGetWinnerFirstRow() throws Exception {
-        final Field field = new Field(testFieldWidth, testFieldHeight);
-        final MoveController mc = new MoveController();
-        final WinnerController wc = new WinnerController();
-        final Figure inputFigure = Figure.O;
-        for (int i = 0; i < testFieldWidth; i++) {
-            mc.applyFigure(field, new Point(i, 0), inputFigure);
-        }
-        final Figure actualValue = wc.getWinner(field);
-        Assert.assertEquals(inputFigure, actualValue);
-    }
-
-    @Test
-    public void testGetWinnerMiddleRow() throws Exception {
-        final Field field = new Field(testFieldWidth, testFieldHeight);
-        final MoveController mc = new MoveController();
-        final WinnerController wc = new WinnerController();
-        final Figure inputFigure = Figure.O;
-        for (int i = 0; i < testFieldWidth; i++) {
-            mc.applyFigure(field, new Point(i, testFieldHeight / 2), inputFigure);
-        }
-        final Figure actualValue = wc.getWinner(field);
-        Assert.assertEquals(inputFigure, actualValue);
-    }
-
-    @Test
-    public void testGetWinnerLastRow() throws Exception {
-        final Field field = new Field(testFieldWidth, testFieldHeight);
-        final MoveController mc = new MoveController();
-        final WinnerController wc = new WinnerController();
-        final Figure inputFigure = Figure.O;
-        for (int i = 0; i < testFieldWidth; i++) {
-            mc.applyFigure(field, new Point(i, testFieldHeight - 1), inputFigure);
-        }
-        final Figure actualValue = wc.getWinner(field);
-        Assert.assertEquals(inputFigure, actualValue);
-    }
-
-    @Test
-    public void testGetWinnerFirstColumn() throws Exception {
-        final Field field = new Field(testFieldWidth, testFieldHeight);
+    public void testGetWinnerRow() throws Exception {
         final MoveController mc = new MoveController();
         final WinnerController wc = new WinnerController();
         final Figure inputFigure = Figure.O;
         for (int i = 0; i < testFieldHeight; i++) {
-            mc.applyFigure(field, new Point(0, i), inputFigure);
+            final Field field = new Field(testFieldWidth, testFieldHeight);
+            for (int j = 0; j < testFieldWidth; j++) {
+                mc.applyFigure(field, new Point(i, j), inputFigure);
+            }
+            final Figure actualValue = wc.getWinner(field);
+            Assert.assertEquals(inputFigure, actualValue);
         }
-        final Figure actualValue = wc.getWinner(field);
-        Assert.assertEquals(inputFigure, actualValue);
     }
 
     @Test
-    public void testGetWinnerMiddleColumn() throws Exception {
-        final Field field = new Field(testFieldWidth, testFieldHeight);
+    public void testGetWinnerWhenNoWinnerRow() throws Exception {
         final MoveController mc = new MoveController();
         final WinnerController wc = new WinnerController();
         final Figure inputFigure = Figure.O;
+        final Figure wrongFigure = Figure.X;
         for (int i = 0; i < testFieldHeight; i++) {
-            mc.applyFigure(field, new Point(testFieldWidth / 2, i), inputFigure);
+            final Field field = new Field(testFieldWidth, testFieldHeight);
+            for (int j = 0; j < testFieldWidth - 1; j++) {
+                mc.applyFigure(field, new Point(i, j), inputFigure);
+            }
+            mc.applyFigure(field, new Point(i, testFieldWidth - 1), wrongFigure);
+            final Figure actualValue = wc.getWinner(field);
+            Assert.assertNull(actualValue);
         }
-        final Figure actualValue = wc.getWinner(field);
-        Assert.assertEquals(inputFigure, actualValue);
     }
 
     @Test
-    public void testGetWinnerLastColumn() throws Exception {
-        final Field field = new Field(testFieldWidth, testFieldHeight);
+    public void testGetWinnerColumn() throws Exception {
         final MoveController mc = new MoveController();
         final WinnerController wc = new WinnerController();
         final Figure inputFigure = Figure.O;
-        for (int i = 0; i < testFieldHeight; i++) {
-            mc.applyFigure(field, new Point(testFieldWidth - 1, i), inputFigure);
+        for (int i = 0; i < testFieldWidth; i++) {
+            final Field field = new Field(testFieldWidth, testFieldHeight);
+            for (int j = 0; j < testFieldHeight; j++) {
+                mc.applyFigure(field, new Point(i, j), inputFigure);
+            }
+            final Figure actualValue = wc.getWinner(field);
+            Assert.assertEquals(inputFigure, actualValue);
         }
-        final Figure actualValue = wc.getWinner(field);
-        Assert.assertEquals(inputFigure, actualValue);
+    }
+
+    @Test
+    public void testGetWinnerWhenNoWinnerColumn() throws Exception {
+        final MoveController mc = new MoveController();
+        final WinnerController wc = new WinnerController();
+        final Figure inputFigure = Figure.O;
+        final Figure wrongFigure = Figure.X;
+        for (int i = 0; i < testFieldWidth; i++) {
+            final Field field = new Field(testFieldWidth, testFieldHeight);
+            for (int j = 0; j < testFieldHeight - 1; j++) {
+                mc.applyFigure(field, new Point(i, j), inputFigure);
+            }
+            mc.applyFigure(field, new Point(i, testFieldHeight - 1), wrongFigure);
+            final Figure actualValue = wc.getWinner(field);
+            Assert.assertNull(actualValue);
+        }
     }
 
     @Test
@@ -97,12 +83,27 @@ public class WinnerControllerTest {
         final WinnerController wc = new WinnerController();
         final Figure inputFigure = Figure.O;
         for (int i = 0; i < testFieldWidth; i++) {
-            for (int j = 0; j < testFieldHeight; j++) {
-                mc.applyFigure(field, new Point(i, j), inputFigure);
-            }
+            mc.applyFigure(field, new Point(i, i), inputFigure);
         }
         final Figure actualValue = wc.getWinner(field);
         Assert.assertEquals(inputFigure, actualValue);
+    }
+
+    @Test
+    public void testGetWinnerDiagonalLeftWhenNoWinner() throws Exception {
+        final Field field = new Field(testFieldWidth, testFieldHeight);
+        final MoveController mc = new MoveController();
+        final WinnerController wc = new WinnerController();
+        final Figure inputFigure = Figure.O;
+        final Figure wrongFigure = Figure.X;
+        final int maxX = testFieldWidth - 1;
+        final int maxY = testFieldHeight - 1;
+        for (int i = 0; i < maxX; i++) {
+            mc.applyFigure(field, new Point(i, i), inputFigure);
+        }
+        mc.applyFigure(field, new Point(maxX, maxY), wrongFigure);
+        final Figure actualValue = wc.getWinner(field);
+        Assert.assertNull(actualValue);
     }
 
     @Test
@@ -112,12 +113,27 @@ public class WinnerControllerTest {
         final WinnerController wc = new WinnerController();
         final Figure inputFigure = Figure.O;
         for (int i = testFieldWidth - 1; i >= 0; i--) {
-            for (int j = testFieldHeight - 1; j >= 0; j--) {
-                mc.applyFigure(field, new Point(i, j), inputFigure);
-            }
+            mc.applyFigure(field, new Point(i, i), inputFigure);
         }
         final Figure actualValue = wc.getWinner(field);
         Assert.assertEquals(inputFigure, actualValue);
+    }
+
+    @Test
+    public void testGetWinnerDiagonalRightWhenNoWinner() throws Exception {
+        final Field field = new Field(testFieldWidth, testFieldHeight);
+        final MoveController mc = new MoveController();
+        final WinnerController wc = new WinnerController();
+        final Figure inputFigure = Figure.O;
+        final Figure wrongFigure = Figure.X;
+        final int maxX = testFieldWidth - 1;
+        final int maxY = testFieldHeight - 1;
+        for (int i = maxX - 1; i >= 0; i--) {
+            mc.applyFigure(field, new Point(i, i), inputFigure);
+        }
+        mc.applyFigure(field, new Point(maxX, maxY), wrongFigure);
+        final Figure actualValue = wc.getWinner(field);
+        Assert.assertNull(actualValue);
     }
 
 }
