@@ -1,11 +1,11 @@
 package io.hexlet.xo.model;
 
-import io.hexlet.xo.model.exceptions.AlreadyOccupiedException;
 import io.hexlet.xo.model.exceptions.InvalidPointException;
 
 import java.awt.*;
 
 public class Field {
+
     public static final int FIELD_SIZE = 3;
     public static final int MAX_COORDINATE = FIELD_SIZE;
     public static final int MIN_COORDINATE = 0;
@@ -22,12 +22,9 @@ public class Field {
         return field[point.x][point.y];
     }
 
-    public void setFigure(final Point point, final Figure figure) throws InvalidPointException, AlreadyOccupiedException {
+    public void setFigure(final Point point, final Figure figure) throws InvalidPointException {
         if (!checkPoint(point)) {
             throw new InvalidPointException();
-        }
-        if (field[point.x][point.y] != null) {
-            throw new AlreadyOccupiedException();
         }
         field[point.x][point.y] = figure;
     }
@@ -39,4 +36,5 @@ public class Field {
     private boolean checkCoordinate(final int coordinate) {
         return coordinate >= MIN_COORDINATE && coordinate < MAX_COORDINATE;
     }
+
 }
