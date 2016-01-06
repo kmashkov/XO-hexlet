@@ -12,9 +12,12 @@ import static org.junit.Assert.fail;
 
 public class MoveControllerTest {
 
+    int testFieldWidth = 3;
+    int testFieldHeight = 3;
+
     @Test
     public void testApplyFigure() throws Exception {
-        final Field field = new Field();
+        final Field field = new Field(testFieldWidth, testFieldHeight);
         final MoveController mc = new MoveController();
         final Point inputPoint = new Point(0, 0);
         final Figure inputFigure = Figure.O;
@@ -25,7 +28,7 @@ public class MoveControllerTest {
     
     @Test
     public void testApplyFigureWhenOccupied() throws Exception {
-        final Field field = new Field();
+        final Field field = new Field(testFieldWidth, testFieldHeight);
         final MoveController mc = new MoveController();
         final Point inputPoint = new Point(0, 0);
         final Figure inputFigure = Figure.O;

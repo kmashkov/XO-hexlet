@@ -12,7 +12,7 @@ public class MoveController {
     public void applyFigure(Field field,
                             Point point,
                             Figure figure) throws AlreadyOccupiedException,
-                                                InvalidPointException {
+            InvalidPointException {
         if (field.getFigure(point) != null) {
             throw new AlreadyOccupiedException();
         }

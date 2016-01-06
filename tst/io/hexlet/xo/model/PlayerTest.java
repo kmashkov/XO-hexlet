@@ -23,4 +23,5 @@ public class PlayerTest {
         final Figure actualValue = player.getFigure();
         assertEquals(expectedValue, actualValue);
     }
+
 }

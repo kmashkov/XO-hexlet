@@ -6,10 +6,16 @@ import io.hexlet.xo.model.exceptions.InvalidPointException;
 import java.awt.*;
 
 public class Field {
-    public static final int FIELD_SIZE = 3;
-    public static final int MAX_COORDINATE = FIELD_SIZE;
+    public final int width;
+    public final int height;
     public static final int MIN_COORDINATE = 0;
-    private final Figure[][] field = new Figure[FIELD_SIZE][FIELD_SIZE];
+    private final Figure[][] field;
+
+    public Field(int width, int height) {
+        this.width = width;
+        this.height = height;
+        field = new Figure[width][height];
+    }
 
     public int getSize() {
         return field.length;
@@ -33,10 +39,10 @@ public class Field {
     }
 
     private boolean checkPoint(final Point point) {
-        return checkCoordinate(point.x) && checkCoordinate(point.y);
+        return checkCoordinate(point.x, width) && checkCoordinate(point.y, height);
     }
 
-    private boolean checkCoordinate(final int coordinate) {
-        return coordinate >= MIN_COORDINATE && coordinate < MAX_COORDINATE;
+    private boolean checkCoordinate(final int coordinate, final int maxCoordinate) {
+        return coordinate >= MIN_COORDINATE && coordinate < maxCoordinate;
     }
 }
