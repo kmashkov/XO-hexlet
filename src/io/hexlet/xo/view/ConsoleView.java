@@ -60,7 +60,7 @@ public class ConsoleView {
     private Point askPoint() {
         final int x = askCoordinate("x") - 1;
         final int y = askCoordinate("y") - 1;
-        return new Point(y, x);
+        return new Point(x, y);
     }
 
     private int askCoordinate(final String coordinate) {
@@ -78,7 +78,7 @@ public class ConsoleView {
             System.out.print(" ");
             Figure figure;
             try {
-                figure = field.getFigure(new Point(x, y));
+                figure = field.getFigure(new Point(y, x));
             } catch (InvalidPointException e) {
                 e.printStackTrace();
                 throw new RuntimeException(e);

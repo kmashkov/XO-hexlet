@@ -25,17 +25,17 @@ public class Field {
         if (!checkPoint(point)) {
             throw new InvalidPointException();
         }
-        return field[point.y][point.x];
+        return field[point.x][point.y];
     }
 
     public void setFigure(final Point point, final Figure figure) throws InvalidPointException, AlreadyOccupiedException {
         if (!checkPoint(point)) {
             throw new InvalidPointException();
         }
-        if (field[point.y][point.x] != null) {
+        if (field[point.x][point.y] != null) {
             throw new AlreadyOccupiedException();
         }
-        field[point.y][point.x] = figure;
+        field[point.x][point.y] = figure;
     }
 
     private boolean checkPoint(final Point point) {
