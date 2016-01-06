@@ -113,7 +113,9 @@ public class WinnerControllerTest {
         final WinnerController wc = new WinnerController();
         final Figure inputFigure = Figure.O;
         for (int i = testFieldWidth - 1; i >= 0; i--) {
-            mc.applyFigure(field, new Point(i, i), inputFigure);
+            for (int j = 0; j < testFieldHeight - 1; j++) {
+                mc.applyFigure(field, new Point(i, j), inputFigure);
+            }
         }
         final Figure actualValue = wc.getWinner(field);
         Assert.assertEquals(inputFigure, actualValue);
