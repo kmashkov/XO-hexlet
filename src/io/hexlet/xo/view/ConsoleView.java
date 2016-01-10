@@ -39,6 +39,7 @@ public class ConsoleView {
         }
         if(currentFigure == null) {
             System.out.println("\nGAME OVER!");
+            return false;
         }
         System.out.printf("Plese input point for %s(x, y).\n", currentFigure);
         Point movePoint = askPoint();
